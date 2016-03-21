@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :rooms
   # Scopes examples
   #scope :most_recent, -> { order('created_at DESC') }
   #scope :from_sampa, -> { where(:location => 'São Paulo') }
