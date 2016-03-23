@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :rooms
+  has_many :rooms, :dependent => :destroy
+  has_many :reviews, :dependent => :destroy
   # Scopes examples
   #scope :most_recent, -> { order('created_at DESC') }
   #scope :from_sampa, -> { where(:location => 'São Paulo') }
