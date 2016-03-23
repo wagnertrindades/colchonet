@@ -11,24 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306221113) do
+ActiveRecord::Schema.define(version: 20160321234325) do
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "room_id"
+    t.integer  "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "reviews", ["room_id"], name: "index_reviews_on_room_id"
+  add_index "reviews", ["user_id", "room_id"], name: "index_reviews_on_user_id_and_room_id", unique: true
+  add_index "reviews", ["user_id"], name: "index_reviews_on_user_id"
 
   create_table "rooms", force: :cascade do |t|
     t.string   "title"
     t.string   "location"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.integer  "reviews_count"
   end
+
+  add_index "rooms", ["user_id"], name: "index_rooms_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "full_name"
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
     t.string   "location"
     t.text     "bio"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "confirmed_at"
+    t.string   "confirmation_token"
   end
 
 end
